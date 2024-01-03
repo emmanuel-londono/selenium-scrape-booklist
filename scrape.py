@@ -5,7 +5,6 @@ from selenium.webdriver.chrome.options import Options
 
 # Web Driver Settings
 chrome_options = Options()
-chrome_options.page_load_strategy = 'eager'
 driver = webdriver.Chrome(options=chrome_options)
 driver.set_page_load_timeout(10)
 base_url = "https://www.thegreatestbooks.org/page/"
@@ -14,6 +13,7 @@ output_file="greatest_books_of_all_time_list.txt"
 def scrape_books(base_url,output_file):
     try:
         for number in range(1, 224):
+            print(f'///////Page Number {number}/////////')
             url = f"{base_url}{number}"
             driver.get(url)
             
@@ -22,7 +22,7 @@ def scrape_books(base_url,output_file):
 
             # Web Page Content//
             # Wait for webpage to sync up
-            driver.implicitly_wait(0.5)
+            driver.implicitly_wait(1)
 
             # Establish locators
             all_elements = driver.find_elements(By.XPATH, "//h4/a[contains(@href, '/books/')]")
